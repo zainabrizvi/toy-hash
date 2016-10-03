@@ -92,7 +92,7 @@ int main(){
 		}
 		// new user
 		else  {
-			printf("Hi %s lol ur a dumbo i cant help u cuz zainy didnt finish her homewerk yet.\n", user_input);
+			printf("Hi %s lol ur a dumbo\n", user_input);
 			exit(0);
 		}
 	}
