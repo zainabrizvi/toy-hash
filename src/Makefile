@@ -1,2 +1,5 @@
-all:
-	gcc OLMHash.c -o OLMHash
+all:	
+	gcc ht.c -o ht
+
+clean:
+	rm hash ht
