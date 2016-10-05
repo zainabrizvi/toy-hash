@@ -2,41 +2,55 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
-char* toy_hash(char*);
-void E(char* in, char* out);
+#include "toy_hash.h"
 
 
-int main( int argc, char* argv[]){
 
-	if (argc == 2) 
-		printf("toy_hash(%s) = %s\n",argv[1], toy_hash(argv[1]));
-	else if (argc == 3)
-		printf("%d\n",strcmp(toy_hash(argv[1]), toy_hash(argv[2])));
-
-
-	return 0;
-}
-char* toy_hash(char* pass) {
+// look through this carefully
+// maybe look for a better comparator
+// for the hashes
+char* toy_hash(char* str) {
 	int i;
-	char* in = (char*)malloc(32);
-	char* out = (char*)malloc(32);
-	
-	strcpy(in,pass);
 
-	// null pad to length 12
-	for (i = strlen(in); i < 12; i++)
-		in[i] = '\0';
+	char* A0 = (char*)malloc(sizeof(char)*5);
+	char* A1 = (char*)malloc(sizeof(char)*5);
+	char* A2 = (char*)malloc(sizeof(char)*5);
 
-	// to upper case
-	for (i = 0; i < 12; i++)
-		in[i] = toupper(in[i]);
+	char* B0 = (char*)malloc(sizeof(char)*5);
+	char* B1 = (char*)malloc(sizeof(char)*5);
+	char* B2 = (char*)malloc(sizeof(char)*5);
 
 	
-	
-	E(in,out);
+	/*
+	 * I think the problem is in correctly splitting
+	 * the input word into three blocks of size
+	 * 4 bytes each. I think I am doing something
+	 * stupid with malloc, strings, copying, 
+	 * whatever.
+	*/
 
-	return out;
+	// splitting the input string into 3 blocks
+	strncpy(A0, str,4);
+	strncpy(A1, str+4,4);
+	strncpy(A2, str+8,4);
+
+
+
+	A0[4] = A1[4] = A2[4] = '\0';
+
+	E(A0,B0);
+	E(A1,B1);
+	E(A2,B2);
+
+	char* result = (char*)malloc(sizeof(char)*13);
+	result[0] = '\0';
+	strcat(result, B0);
+	strcat(result, B1);
+	strcat(result, B2);
+
+	result[13] = '\0';
+
+	return result;
 }
 
 /*
@@ -54,3 +68,4 @@ void E(char *in, char *out)
 	out[2]=((in[2]&0x80)^((in[1]<<7)&0x80))^(((in[2]>>1)&0x7F)^((in[2])&0x7F));
 	out[3]=((in[3]&0x80)^((in[2]<<7)&0x80))^(((in[3]>>1)&0x7F)^((in[3])&0x7F));
 }
+
