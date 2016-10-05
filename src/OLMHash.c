@@ -17,14 +17,6 @@ void menu();
 void login(char**,char**,int*);
 int add_user(char*,char*);
 
-struct hash_table {
-	int N = 0; // number of users 
-	int logins[MAX_USERS];
-	char* users[MAX_USERS];
-	char* hashes[MAX_USERS];
-};
-
-
 
 
 int main( int argc, char* argv[]){
@@ -38,14 +30,13 @@ int main( int argc, char* argv[]){
 	char* users[MAX_USERS];
 	char* hashes[MAX_USERS];
 
-	struct* hash_table ht;
 
 
 	// initialize arrays
 	for (i = 0; i < MAX_USERS; i++) { 
-		ht->logins[i] = 0;
-		ht->users[i] = (char*)malloc(sizeof(char)*MAX_LEN);
-		ht->hashes[i] = (char*)malloc(sizeof(char)*MAX_LEN);
+		logins[i] = 0;
+		users[i] = (char*)malloc(sizeof(char)*MAX_LEN);
+		hashes[i] = (char*)malloc(sizeof(char)*MAX_LEN);
 	}
 
 
